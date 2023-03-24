@@ -527,3 +527,6 @@ footer {
   }
 }
 
+.displayBlock {
+  display: block;
+}
