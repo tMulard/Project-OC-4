@@ -1,3 +1,13 @@
+const RESULTS = {
+  firstname: null,
+  lastname: null,
+  mail:null,
+  birthdate: null,
+  sportquantity: null,
+  location: null,
+  checkbox: null
+}
+
 // ====================
 //    🏗️ FONCTIONS
 // ====================
@@ -5,6 +15,148 @@
 const openBurgerNav = () => {
   const topNav = document.getElementById("myTopnav");
   topNav.classList.toggle('responsive')
+}
+
+const verifyFirstName = () => {
+  RESULTS.firstname = null
+  
+  const formDataFirst = document.querySelector('.formData-username')
+  formDataFirst.setAttribute('data-error-visible', false)
+  
+  const regex = /[a-zA-Z\-éèàïêçôù]+/gm
+  
+  if (inputUserName.value.length > 2) {
+    const result = inputUserName.value.match(regex)
+    if(result) {
+      // ok c'est tout bon
+      RESULTS.firstname = result.join(" ")
+    } else {
+      formDataFirst.setAttribute('data-error-visible', true)
+      formDataFirst.setAttribute('data-error', "Uniquement des lettres svp")
+    }
+  } else {
+    formDataFirst.setAttribute('data-error-visible', true)
+    formDataFirst.setAttribute('data-error', "Veuillez entrer plus de deux caractères pour le champ du nom.")
+  }
+}
+
+const verifyLastName = () => {
+  RESULTS.lastname = null
+  
+  const formDataLast = document.querySelector('.formData-userlastname')
+  formDataLast.setAttribute('data-error-visible', false)
+  
+  const regex = /[a-zA-Z\-éèàïêçôù]+/gm
+  
+  if (inputUserLastName.value.length >= 2) {
+    const result = inputUserLastName.value.match(regex)
+    if(result) {
+      // ok c'est tout bon
+      RESULTS.lastname = result.join(" ")
+    } else {
+      formDataLast.setAttribute('data-error-visible', true)
+      formDataLast.setAttribute('data-error', "Uniquement des lettres svp")
+    }
+  } else {
+    formDataLast.setAttribute('data-error-visible', true)
+    formDataLast.setAttribute('data-error', "Veuillez entrer plus d'un caractère pour le champ du nom.")
+  }
+}
+
+const verifyMail = () => {
+  RESULTS.mail = null
+
+  const formDataMail = document.querySelector('.formData-usermail')
+  formDataMail.setAttribute('data-error-visible', false)
+  
+  const regexMail = /^[\.A-Za-z]+@[A-Za-z]+\.[\.A-Za-z]+$/gm
+  
+  if (inputUserMail.value.length > 3) {
+    const result = inputUserMail.value.match(regexMail)
+  
+    if(result) {
+      // ok c'est tout bon
+      RESULTS.mail = result.join(", ")
+    } else {
+      formDataMail.setAttribute('data-error-visible', true)
+      formDataMail.setAttribute('data-error', "Entrez une adresse mail correcte.")
+    }
+  } else {
+    formDataMail.setAttribute('data-error-visible', true)
+    formDataMail.setAttribute('data-error', "Entrez une adresse mail correcte.")
+  }
+}
+
+const verifyBirthDate = () => {
+  RESULTS.birthdate = null
+  
+  const formDataBirthDate = document.querySelector('.formData-birthdate')
+  formDataFirst.setAttribute('data-error-visible', false)
+  
+  const regexbd = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/gm
+  
+  if (inputUserBirthDate.value.length > 9) {
+    const result = inputUserBirthDate.value.match(regexbd)
+    if(result) {
+      // ok c'est tout bon
+      RESULTS.birthdate = result.join("")
+    } else {
+      formDataBirthDate.setAttribute('data-error-visible', true)
+      formDataBirthDate.setAttribute('data-error', "Uniquement des chiffres svp.")
+    }
+  } else {
+    formDataBirthDate.setAttribute('data-error-visible', true)
+    formDataBirthDate.setAttribute('data-error', "Veuillez entrer votre date de naissance.")
+  }
+}
+
+const verifySport = () => {
+  RESULTS.sportquantity = null
+
+  const formDataSport = document.querySelector('.formData-sportquantity')
+  formDataSport.setAttribute('data-error-visible', false)
+    
+  if (inputUserSportQuantity.value >= 0) {
+    //   // ok c'est tout bon
+    RESULTS.sportquantity = result.join("")
+  } else {
+    formDataSport.setAttribute('data-error-visible', true)
+    formDataSport.setAttribute('data-error', "Veuillez entrer un chiffre correct.")
+  }
+}
+
+const verifyLocation = () => {
+  RESULTS.location = null
+  const formDataLocation = document.querySelector('.formData-location')
+  formDataLocation.setAttribute('data-error-visible', false)
+  
+  if ((inputUserLocation1.value != null) ||
+  (inputUserLocation2.value != null) ||
+  (inputUserLocation3.value != null) ||
+  (inputUserLocation4.value != null) ||
+  (inputUserLocation5.value != null) ||
+  (inputUserLocation6.value != null)) {
+    //   // ok c'est tout bon
+    RESULTS.location = result.join(", ")
+  } else {
+    formDataLocation.setAttribute('data-error-visible', true)
+    formDataLocation.setAttribute('data-error', "Vous devez choisir une option.")
+  }
+}
+
+const verifyCheckBox = () => {
+  RESULTS.checkbox = null
+  const formDataCheck = document.querySelector('.formData-checkbox')
+  formDataCheck.setAttribute('data-error-visible', false)
+  
+  if (inputUserCheckBox1.value == null) {
+   formDataCheck.setAttribute('data-error-visible', true)
+   formDataCheck.setAttribute('data-error', "Vous devez vérifier que vous acceptez les termes et conditions.")
+  } else {
+   //   // ok c'est tout bon
+   RESULTS.checkbox = result.join("")
+  }
+
 }
 
 const toggleModal = () => {
@@ -45,149 +197,30 @@ burger.addEventListener('click', openBurgerNav)
 close.addEventListener('click', toggleModal)
 modalBtn.forEach((btn) => {btn.addEventListener("click", toggleModal)})
 
-
 button.addEventListener('click', (event) => {
-  //event.preventDefault()
+  event.preventDefault()
   
   // valider les inputs
-  const formData = document.querySelector('.formData-username')
-  if (inputUserName.value.length <= 2) {
-    formData.setAttribute('data-error-visible', true)
-    formData.setAttribute('data-error', "Veuillez entrer 2 caractères ou plus pour le champ du prénom.")
-  } else {
-    formData.setAttribute('data-error-visible', false)
-  }
+  verifyFirstName()
+  verifyLastName()
+  verifyMail()
+  verifyBirthDate()
+  verifySport()
+  verifyLocation()
+  verifyCheckBox()
 
-  const formDataLast = document.querySelector('.formData-userlastname')
-  if (inputUserLastName.value.length <= 2) {
-    formDataLast.setAttribute('data-error-visible', true)
-    formDataLast.setAttribute('data-error', "Veuillez entrer plus d'un caractère pour le champ du nom.")
-  } else {
-    formDataLast.setAttribute('data-error-visible', false)
+  console.log(RESULTS);
+  if (
+     RESULTS.firstname &&
+     RESULTS.lastname &&
+     RESULTS.mail &&
+     RESULTS.birthdate &&
+     RESULTS.sportquantity &&
+     RESULTS.location &&
+     RESULTS.checkbox 
+   ) {
+   // si tout est ok on affiche le message
+  console.log("Merci ! Votre réservation a été reçue.");
   }
-
-  //   const formDataMail = document.querySelector('.formData-usermail')
-  //   if (inputUserMail.value != [*] + "@" + [*] + "." + [*]) {
-  //     formDataMail.setAttribute('data-error-visible', true)
-  //     formDataMail.setAttribute('data-error', "L'input doit contenir un format d'adresse mail valable")
-  //   } else {
-  //     formDataMail.setAttribute('data-error-visible', false)
-  //   }
   
-  //   const formDataBirthDate = document.querySelector('.formData-birthdate')
-  //   if (inputUserBirthDate.value != [*]+"/"+[*]+"/"+[*]) {
-  //     formDataBirthDate.setAttribute('data-error-visible', true)
-  //     formDataBirthDate.setAttribute('data-error', "Vous devez entrer votre date de naissance.")
-  //   } else {
-  //     formDataBirthDate.setAttribute('data-error-visible', false)
-  //   }
-
-  //   const formDataSport = document.querySelector('.formData-sportquantity')
-  //   if (inputUserLastName.value != int) {
-  //     formDataSport.setAttribute('data-error-visible', true)
-  //     formDataSport.setAttribute('data-error', "Veuillez entrer un nombre.")
-  //   } else {
-  //     formDataSport.setAttribute('data-error-visible', false)
-  //   }
-
-  //   const formDataLocation = document.querySelector('.formData-location')
-  //   if (inputUserLocation1.value == null) && (inputUserLocation2.value == null) && (inputUserLocation3.value == null) && (inputUserLocation4.value == null) && (inputUserLocation5.value == null) && (inputUserLocation6.value == null) {
-  //     formDataLocation.setAttribute('data-error-visible', true)
-  //     formDataLocation.setAttribute('data-error', "Vous devez choisir une option.")
-  //   } else {
-  //     formDataLocation.setAttribute('data-error-visible', false)
-  //   }
-
-  const formDataCheck = document.querySelector('.formData-checkbox')
-  if (inputUserCheckBox1.value == null) {
-    formDataCheck.setAttribute('data-error-visible', true)
-    formDataCheck.setAttribute('data-error', "Vous devez vérifier que vous acceptez les termes et conditions.")
-  } else {
-    formDataCheck.setAttribute('data-error-visible', false)
-  }
-
-  const PopUpMessage = new MessageEvent("message", {
-    data: "Merci ! Votre réservation a été reçue.",
-  });
-  
-})
-
-// standBy
-inputUserName.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-// listener autres inputs
-inputUserLastName.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserMail.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserBirthDate.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserSportQuantity.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserLocation1.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserLocation2.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserLocation3.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserLocation4.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserLocation5.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserLocation6.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserCheckBox1.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
-})
-
-inputUserCheckBox2.addEventListener('input', (event) => {
-  const value = event.target.value
-  // magic happen here
-  console.log(value)
 })
