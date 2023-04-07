@@ -91,7 +91,7 @@ const verifyBirthDate = () => {
   RESULTS.birthdate = null
   
   const formDataBirthDate = document.querySelector('.formData-birthdate')
-  formDataFirst.setAttribute('data-error-visible', false)
+  formDataBirthDate.setAttribute('data-error-visible', false)
   
   const regexbd = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/gm
   
