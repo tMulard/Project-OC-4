@@ -118,6 +118,8 @@ const verifySport = () => {
     
   if (inputUserSportQuantity.value >= 0) {
     //   // ok c'est tout bon
+    const result = [];
+    result[0] = inputUserSportQuantity.value;
     RESULTS.sportquantity = result.join("")
   } else {
     formDataSport.setAttribute('data-error-visible', true)
@@ -137,7 +139,11 @@ const verifyLocation = () => {
   (inputUserLocation5.value != null) ||
   (inputUserLocation6.value != null)) {
     //   // ok c'est tout bon
-    RESULTS.location = result.join(", ")
+    const locationArray = [];
+    for (let i = 0; i < 6; i++) {
+      locationArray[i] = inputUserLocation${(i+1)};
+    }
+    RESULTS.location = locationArray.join(" ")
   } else {
     formDataLocation.setAttribute('data-error-visible', true)
     formDataLocation.setAttribute('data-error', "Vous devez choisir une option.")
