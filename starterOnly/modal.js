@@ -138,25 +138,33 @@ const verifyLocation = () => {
   }
 }
 
-const verifyCheckBox = () => {
+const verifyCGU = () => {
   RESULTS.cgu = "off"
-  RESULTS.newsletter = "off"
-  const formDataCheck = document.querySelector('.formData-checkbox')
-  formDataCheck.setAttribute('data-error-visible', false)
+  
+  const formDataCGU = document.querySelector('.formData-checkbox > #checkbox1')
+  formDataCGU.setAttribute('data-error-visible', false)
   
   if (inputUserCGU.value == "off") {
-   formDataCheck.setAttribute('data-error-visible', true)
-   formDataCheck.setAttribute('data-error', "Vous devez vérifier que vous acceptez les termes et conditions.")
+    formDataCGU.setAttribute('data-error-visible', true)
+    formDataCGU.setAttribute('data-error', "Vous devez vérifier que vous acceptez les termes et conditions.")
   } else {
-   //   // ok c'est tout bon
-   RESULTS.cgu = inputUserCGU.value
-  }
-  if (inputUserNewsletter.value == "off") {
-    console.log("Êtes-vous sûr(e) de ne pas vouloir être abonné(e) chez nous?")
-   } else {
     //   // ok c'est tout bon
-    RESULTS.newsletter = inputUserNewsletter.value
-   }
+    RESULTS.cgu = inputUserCGU.value
+  }
+}
+
+const verifyNewsLetter = () => {
+  RESULTS.newsletter = "off"
+  
+  const formDataNewsLetter = document.querySelector('.formData-checkbox > #checkbox2')
+  formDataNewsLetter.setAttribute('data-error-visible', false)
+  
+  if (inputUserNewsLetter.value == "off") {
+    console.log("Êtes-vous sûr(e) de ne pas vouloir être abonné(e) chez nous?")
+  } else {
+    //   // ok c'est tout bon
+    RESULTS.newsletter = inputUserNewsLetter.value
+  }
 }
 
 const toggleModal = () => {
@@ -178,7 +186,7 @@ const inputUserMail = document.querySelector("#email")
 const inputUserBirthDate = document.querySelector("#birthdate")
 const inputUserSportQuantity = document.querySelector("#quantity")
 const inputUserCGU = document.querySelector("#checkbox1")
-const inputUserNewsletter = document.querySelector("#checkbox2")
+const inputUserNewsLetter = document.querySelector("#checkbox2")
 
 const button = document.querySelector('.btn-submit')
 
@@ -187,6 +195,10 @@ const button = document.querySelector('.btn-submit')
 // ====================
 burger.addEventListener('click', openBurgerNav)
 close.addEventListener('click', toggleModal)
+
+// if (modalBtn. == none ) {
+//   btn.addEventListener("click", toggleModal)
+// }
 modalBtn.forEach((btn) => {btn.addEventListener("click", toggleModal)})
 
 button.addEventListener('click', (event) => {
@@ -199,7 +211,8 @@ button.addEventListener('click', (event) => {
   verifyBirthDate()
   verifySport()
   verifyLocation()
-  verifyCheckBox()
+  verifyCGU()
+  verifyNewsLetter()
 
   console.log(RESULTS);
 
@@ -213,7 +226,7 @@ button.addEventListener('click', (event) => {
      RESULTS.cgu
    ) {
    // si tout est ok on affiche le message
-  console.log("Merci ! Votre réservation a été reçue.");
+  // btn.addEventListener("click", toggleEndModal)
   } else {
     // message d'erreur
     console.log("Erreur, les champs n'ont pas été remplis correctement")
