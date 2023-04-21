@@ -256,6 +256,6 @@ button.addEventListener("click", (event) => {
       form.reset();
     });
 
-    // [TODO] - envoie des données sur le serveur !
+    // [TODO] - envoi des données sur le serveur !
   }
 });
