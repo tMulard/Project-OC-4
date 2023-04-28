@@ -18,21 +18,22 @@ const openBurgerNav = () => {
   const topNav = document.getElementById("myTopnav");
   topNav.classList.toggle("responsive");
 };
-
+//Functions to check input 
 const verifyFirstName = () => {
+  //value in input field recieved by the RESULTS object emptied before operation
   RESULTS.firstname = null;
 
   const formDataFirst = document.querySelector(".formData-username");
   formDataFirst.setAttribute("data-error-visible", false);
-
+  //regular expression = letters + special letters
   const regex = /[a-zA-Z\-éèàïêçôù]+/gm;
 
   if (inputUserName.value.length > 2) {
     const result = inputUserName.value.match(regex);
     if (result) {
-      // ok c'est tout bon
+      // if the result is valid, then add the input value to the corresponding RESULTS variable 
       RESULTS.firstname = result.join(" ");
-    } else {
+    } else {//or else, send error message
       formDataFirst.setAttribute("data-error-visible", true);
       formDataFirst.setAttribute("data-error", "Uniquement des lettres svp");
     }
@@ -50,13 +51,13 @@ const verifyLastName = () => {
 
   const formDataLast = document.querySelector(".formData-userlastname");
   formDataLast.setAttribute("data-error-visible", false);
-
+  //regular expression = letters + special letters
   const regex = /[a-zA-Z\-éèàïêçôù]+/gm;
 
   if (inputUserLastName.value.length >= 2) {
     const result = inputUserLastName.value.match(regex);
     if (result) {
-      // ok c'est tout bon
+      // if the result is valid, then add the input value to the corresponding RESULTS variable 
       RESULTS.lastname = result.join(" ");
     } else {
       formDataLast.setAttribute("data-error-visible", true);
@@ -76,14 +77,14 @@ const verifyMail = () => {
 
   const formDataMail = document.querySelector(".formData-usermail");
   formDataMail.setAttribute("data-error-visible", false);
-
+  //regular expression = letters (+ "." + letters) + "@" + letters + "." + letters (+ "." + letters)
   const regexMail = /^[\.A-Za-z]+@[A-Za-z]+\.[\.A-Za-z]+$/gm;
 
   if (inputUserMail.value.length > 3) {
     const result = inputUserMail.value.match(regexMail);
 
     if (result) {
-      // ok c'est tout bon
+      // if the result is valid, then add the input value to the corresponding RESULTS variable 
       RESULTS.mail = result.join(", ");
     } else {
       formDataMail.setAttribute("data-error-visible", true);
@@ -105,13 +106,14 @@ const verifyBirthDate = () => {
   RESULTS.birthdate = null;
   const today = new Date();
   const givenDate = new Date(inputUserBirthDate.value);
+  //regular expression = 4 digit number + "-" 2 digit number + "-" 2 digit number 
   const regexbd = /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/gm;
 
   const formDataBirthDate = document.querySelector(".formData-birthdate");
   formDataBirthDate.setAttribute("data-error-visible", false);
 
   if (inputUserBirthDate.value.match(regexbd) && givenDate < today) {
-    // ok c'est tout bon
+    // if the result is valid, then add the input value to the corresponding RESULTS variable 
     RESULTS.birthdate = inputUserBirthDate.value;
   } else {
     formDataBirthDate.setAttribute("data-error-visible", true);
@@ -127,9 +129,9 @@ const verifySport = () => {
 
   const formDataSport = document.querySelector(".formData-sportquantity");
   formDataSport.setAttribute("data-error-visible", false);
-
+  //check if the number is neither null nor negative
   if (inputUserSportQuantity.value >= 0) {
-    //   // ok c'est tout bon
+    // if the result is valid, then add the input value to the corresponding RESULTS variable 
     RESULTS.sportquantity = parseInt(inputUserSportQuantity.value);
   } else {
     formDataSport.setAttribute("data-error-visible", true);
@@ -146,7 +148,7 @@ const verifyLocation = () => {
   formDataLocation.setAttribute("data-error-visible", false);
 
   const citySelected = document.querySelector("input[type='radio']:checked");
-
+  // if none of the radio buttons is checked, then display an error message
   if (citySelected === null) {
     formDataLocation.setAttribute("data-error-visible", true);
     formDataLocation.setAttribute(
@@ -180,7 +182,7 @@ const verifyNewsLetter = () => {
 
   RESULTS.newsletter = inputUserNewsLetter.checked;
 };
-
+//open/close the inscription window
 const toggleModal = () => {
   const modalbg = document.querySelector(".bground");
   modalbg.classList.toggle("displayBlock");
@@ -217,7 +219,7 @@ modalBtn.forEach((btn) => {
 button.addEventListener("click", (event) => {
   event.preventDefault();
 
-  // valider les inputs
+  // run functions to valid inputs
   verifyFirstName();
   verifyLastName();
   verifyMail();
@@ -227,9 +229,9 @@ button.addEventListener("click", (event) => {
   verifyCGU();
   verifyNewsLetter();
 
-  console.log(RESULTS);
+  console.log(RESULTS);// show in console to check if the input were correctly captured
 
-  if (
+  if ( // if the object is complete with valid inputs
     RESULTS.firstname &&
     RESULTS.lastname &&
     RESULTS.mail &&
@@ -238,7 +240,7 @@ button.addEventListener("click", (event) => {
     RESULTS.location &&
     RESULTS.cgu
   ) {
-    // si tout est ok on affiche le message
+    // then display message message
 
     const successMessage = document.querySelector(".success-message");
     const form = document.querySelector("form");
@@ -247,7 +249,7 @@ button.addEventListener("click", (event) => {
     form.classList.add("hidden");
     successMessage.classList.remove("hidden");
     button.classList.remove("hidden");
-
+    //finally, when the exit button is pressed at the end, reset the window
     button.addEventListener("click", () => {
       toggleModal();
       form.classList.remove("hidden");
