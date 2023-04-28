@@ -164,9 +164,13 @@ const verifyCGU = () => {
   const formDataCGU = document.querySelector(".formData-checkbox > #checkbox1");
   formDataCGU.setAttribute("data-error-visible", false);
 
+  const formDataCheckBoxError = document.querySelector(".formData-checkbox");
+  formDataCheckBoxError.setAttribute("data-error-visible", false);
+
   if (inputUserCGU.checked === false) {
     formDataCGU.setAttribute("data-error-visible", true);
-    formDataCGU.setAttribute(
+    formDataCheckBoxError.setAttribute("data-error-visible", true);
+    formDataCheckBoxError.setAttribute(
       "data-error",
       "Vous devez vérifier que vous acceptez les termes et conditions."
     );
@@ -203,7 +207,6 @@ const inputUserBirthDate = document.querySelector("#birthdate");
 const inputUserSportQuantity = document.querySelector("#quantity");
 const inputUserCGU = document.querySelector("#checkbox1");
 const inputUserNewsLetter = document.querySelector("#checkbox2");
-
 const button = document.querySelector(".btn-submit");
 
 // ====================
